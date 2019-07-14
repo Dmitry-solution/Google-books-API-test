@@ -784,99 +784,58 @@ var file = [
 	  }
 	 ]
 	}
-
 ];
 
-$.each(file, function( key, value ) {
-  	//$('.list').append('<li>' + value.kind + '</li>');
-
+file.forEach(function(value) {
   	var items = '';
-  	
 
   	var blockData = document.getElementById('data-box');
   	for (var i = 0; i < value.items.length; i++) {
-  		
-
-  		items += '<div class="book-item">' + addContent(value.items[i])  + '</div>';
-
-
+  		items += `<div class="book-item">${addContent(value.items[i])}</div>`;
   	}
-
-
   	document.getElementById('data-box').innerHTML = items;
-
-  	console.log(value);
-  	console.log(items);
 });
+
 function addContent(element) {
   	var volumeInfo = element.volumeInfo.title;
   	var text = element.searchInfo.textSnippet;
 
-  	var current = '<h3>' + volumeInfo + '</h3>' + addTable(element) + addImage(element) +  '<p>' + 
-  	text + '</p>' + readBook(element);
+  	var current = `<h3>${volumeInfo}</h3>${addTable(element)}${addImage(element)}<p>${text}</p>${readBook(element)}`;
 
   	return current;
 }
 
 function addTable(obj){
-	var authorsArray = obj.volumeInfo.authors;
-	var dataPublish = obj.volumeInfo.publishedDate;
-	var versionObj = obj.volumeInfo.contentVersion;
-	var langObj = obj.volumeInfo.language;
-	var countryObj = obj.accessInfo.country;
-	var countPageObj = obj.volumeInfo.pageCount;
-	var categoryObj = obj.volumeInfo.categories;
+	let authorsArray = obj.volumeInfo.authors;
+	let dataPublish = obj.volumeInfo.publishedDate;
+	let versionObj = obj.volumeInfo.contentVersion;
+	let langObj = obj.volumeInfo.language;
+	let countryObj = obj.accessInfo.country;
+	let countPageObj = obj.volumeInfo.pageCount;
+	let categoryObj = obj.volumeInfo.categories;
 
-	var authors = '';
-	var data = '';
-	var version = '';
-	var language = '';
-	var country = '';
-	var pageCount = '';
-	var linkCategory = '';
-
-
-	if(authorsArray != null){
-		authors ='<tr><td>Authors:</td><td>'+ authorsArray +'</td></tr>';
-	}
-	if(dataPublish != null){
-		data = '<tr><td>Date of publish:</td><td>'+ dataPublish +'</td></tr>';
-	}
-	if(versionObj != null){
-		version = '<tr><td>Version:</td><td>'+ versionObj +'</td></tr>';
-	}
-	if(langObj != null){
-		language = '<tr><td>Language:</td><td>'+ langObj +'</td></tr>';
-	}
-	if(countryObj != null){
-		country = '<tr><td>Country:</td><td>'+ countryObj +'</td></tr>';
-	}
-	if(countPageObj != null){
-		pageCount = '<tr><td>Quantity of pages:</td><td>'+ countPageObj +'</td></tr>';
-	}
-	if (categoryObj != null) {
-		var link = '<a href="#">' + categoryObj + '</a>';
-		linkCategory = '<tr><td>Categories:</td><td>'+ link +'</td></tr>';
-	}
-	
-
-
-
-	 var table = '<table>' + authors + data +  version + language + country + pageCount + linkCategory +'</table>';
+	let authors = !!authorsArray ? `<tr><td>Authors:</td><td>${authorsArray}</td></tr>` : "";
+	let data = !!dataPublish ? `<tr><td>Date of publish:</td><td>${dataPublish}</td></tr>` : "";
+	let version = !!versionObj ? `<tr><td>Version:</td><td>${versionObj}</td></tr>` : "";
+	let language = !!langObj ? `<tr><td>Language:</td><td>${langObj}</td></tr>` : "";
+	let country = !!countryObj ? `<tr><td>Country:</td><td>${countryObj}</td></tr>` : "";
+	let pageCount = !!countPageObj ? `<tr><td>Quantity of pages:</td><td>${countPageObj}</td></tr>` : "";
+	let link = !!categoryObj ? `<a href="#">${categoryObj}</a>` : "";
+	let linkCategory = !!link ? `<tr><td>Categories:</td><td>${link}</td></tr>` : "";
+		
+	let table = `<table>${authors}${data}${version}${language}${country}${pageCount}${linkCategory}</table>`;
 	
 	return table;
 }
 
 function readBook(element) {
 	var link = element.volumeInfo.previewLink;
-	var reading = '<a class="read-link" href="' + link + '">Read</a>';
+	var reading = `<a class="read-link" href="${link}">Read</a>`;
 	return reading;
 }
 
-
-
 function addImage(element){
 	var imageObject = element.volumeInfo.imageLinks;
-	var image = '<image src="' + imageObject.smallThumbnail + '"/>';
+	var image = `<img src="${imageObject.smallThumbnail}"/>`;
 	return image;
 }
