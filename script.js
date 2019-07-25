@@ -787,55 +787,48 @@ var file = [
 ];
 
 file.forEach(function(value) {
-  	var items = '';
-
-  	var blockData = document.getElementById('data-box');
-  	for (var i = 0; i < value.items.length; i++) {
-  		items += `<div class="book-item">${addContent(value.items[i])}</div>`;
-  	}
+  	let items = '';
+  	
+  	value.items.forEach(function(element){
+  		items += `<div class="book-item">${addContent(element)}</div>`
+  	});
   	document.getElementById('data-box').innerHTML = items;
 });
 
 function addContent(element) {
-  	var volumeInfo = element.volumeInfo.title;
-  	var text = element.searchInfo.textSnippet;
+  	let volumeInfo = element.volumeInfo.title;
+  	let text = element.searchInfo.textSnippet;
 
-  	var current = `<h3>${volumeInfo}</h3>${addTable(element)}${addImage(element)}<p>${text}</p>${readBook(element)}`;
+  	let current = `<h3>${volumeInfo}</h3>${addTable(element)}${addImage(element)}<p>${text}</p>${readBook(element)}`;
 
   	return current;
 }
 
 function addTable(obj){
-	let authorsArray = obj.volumeInfo.authors;
-	let dataPublish = obj.volumeInfo.publishedDate;
-	let versionObj = obj.volumeInfo.contentVersion;
-	let langObj = obj.volumeInfo.language;
-	let countryObj = obj.accessInfo.country;
-	let countPageObj = obj.volumeInfo.pageCount;
-	let categoryObj = obj.volumeInfo.categories;
+	let {authors, publishedDate, contentVersion, language, country, pageCount, categories} = obj.volumeInfo;
 
-	let authors = !!authorsArray ? `<tr><td>Authors:</td><td>${authorsArray}</td></tr>` : "";
-	let data = !!dataPublish ? `<tr><td>Date of publish:</td><td>${dataPublish}</td></tr>` : "";
-	let version = !!versionObj ? `<tr><td>Version:</td><td>${versionObj}</td></tr>` : "";
-	let language = !!langObj ? `<tr><td>Language:</td><td>${langObj}</td></tr>` : "";
-	let country = !!countryObj ? `<tr><td>Country:</td><td>${countryObj}</td></tr>` : "";
-	let pageCount = !!countPageObj ? `<tr><td>Quantity of pages:</td><td>${countPageObj}</td></tr>` : "";
-	let link = !!categoryObj ? `<a href="#">${categoryObj}</a>` : "";
+	!!authors ? authors = `<tr><td>Authors:</td><td>${authors}</td></tr>` : authors = "";
+	!!publishedDate ? publishedDate = `<tr><td>Date of publish:</td><td>${publishedDate}</td></tr>` : publishedDate = "";
+	!!contentVersion ? contentVersion = `<tr><td>Version:</td><td>${contentVersion}</td></tr>` : contentVersion = "";
+	!!language ? language = `<tr><td>Language:</td><td>${language}</td></tr>` : language = "";
+	!!country ? country = `<tr><td>Country:</td><td>${country}</td></tr>` : country = "";
+	!!pageCount ? pageCount = `<tr><td>Quantity of pages:</td><td>${pageCount}</td></tr>` : pageCount = "";
+	let link = !!categories ? `<a href="#">${categories}</a>` : "";
 	let linkCategory = !!link ? `<tr><td>Categories:</td><td>${link}</td></tr>` : "";
 		
-	let table = `<table>${authors}${data}${version}${language}${country}${pageCount}${linkCategory}</table>`;
+	let table = `<table>${authors}${publishedDate}${contentVersion}${language}${country}${pageCount}${linkCategory}</table>`;
 	
 	return table;
 }
 
 function readBook(element) {
-	var link = element.volumeInfo.previewLink;
-	var reading = `<a class="read-link" href="${link}">Read</a>`;
+	let link = element.volumeInfo.previewLink;
+	let reading = `<a class="read-link" href="${link}">Read</a>`;
 	return reading;
 }
 
 function addImage(element){
-	var imageObject = element.volumeInfo.imageLinks;
-	var image = `<img src="${imageObject.smallThumbnail}"/>`;
+	let imageObject = element.volumeInfo.imageLinks;
+	let image = `<img src="${imageObject.smallThumbnail}"/>`;
 	return image;
 }
