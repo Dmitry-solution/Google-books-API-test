@@ -1,15 +1,9 @@
 function showBlock(){
-	var xhr = new XMLHttpRequest();
-	var file = '';
-    xhr.open('GET', 'mock.json', false);
-    xhr.send();
-
-    if (xhr.status != 200) {
-	  alert( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
-	} else {
-     	file = JSON.parse(xhr.responseText);
-    }
-    addDataToPage(file);
+	fetch('./mock.json')
+    .then(response => response.json())
+    .then(data => {
+        addDataToPage(data);
+    });
 }
 
 function showBlockPromise() {
@@ -40,7 +34,7 @@ function addDataToPage(file) {
 	file.forEach(function(value) {
 	  	let items = '';
 	  	
-	  value.items.forEach(function(element){
+	  	value.items.forEach(function(element){
 	  	items += `<div class="book-item">${addContent(element)}</div>`
 	  });
 	  document.getElementById('data-box').innerHTML = items;
