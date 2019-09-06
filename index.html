@@ -12,6 +12,20 @@
 		<header>
 			<div class="wrap">
 				<h1>Catalog of books for learning javascript</h1>
+				<div class="search-block">
+					<input type="text" name="select" id="select" placeholder="Search in file.."/>
+					<button onclick="takeDataFromJson()" id="search-btn">Search</button>
+				</div>
+				<div class="search-block">
+					<input type="text" name="select" id="select1" placeholder="Search in API.."/>
+					<button onclick="takeDataFromAPI()" id="search-btn">Search</button>
+				</div>
+				<div class="button-block">
+					<button onclick="showBlock()">Click-1</button>
+					<button onclick="showBlockPromise()">Click-2</button>
+					<button onclick="clearBlock()">Delete</button>
+				</div>
+				
 			</div>
 		</header>
 
@@ -23,16 +37,16 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
 
 		<footer>
 			<div class="wrap">
-				<p>Artem Barabash 2019&copy;</p>
+				<p>Artem Barabash 2019 &copy;</p>
 			</div>
 			
 		</footer>
 	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

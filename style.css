@@ -30,6 +30,16 @@ header h1{
 	vertical-align: middle;
 	font-family: 'Roboto Condensed', sans-serif;
 	margin: 0;
+	margin-bottom: 25px;
+}
+
+.search-block{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.search-block:nth-last-child(2){
+	margin-top: 10px;
 }
 
 .book-item{
